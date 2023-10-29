@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>Free Prescription Software </title>
+  <meta property="og:title" content="Prescription Software by Jalis Mahmud Nabil">
+
+<meta name="keywords" content="prescription software, healthcare software, prescription management, medical software, free prescription">
+
+<meta property="og:description" content="The best prescription software for healthcare professionals. Streamline your prescription management with our user-friendly software. Try it today!">
+
+<meta property="og:image" content="#">
+
+<meta property="og:url" content="https://jmnabil.com">
+
+<meta name="author" content="Jalis Mahmud Nabil">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 21cm;
+      padding: 20px;
+      margin: 0 auto;
+    }
+
+    h3 {
+      padding: 10px;
+    }
+
+    .column {
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .note {
+      font-style: italic;
+      text-align: center;
+    }
+
+    .form-control {
+      border: none;
+      border-bottom: 0px solid #000;
+    }
+
+    .form-control.inline-input {
+      display: inline;
+      max-width: 60px;
+      /* Adjust width as needed */
+    }
+
+    .add-button {
+      cursor: pointer;
+      color: blue;
+    }
+
+    .remove-button {
+      cursor: pointer;
+      color: red;
+    }
+
+    .medicines {
+      border-left: 2px solid black;
+      padding-left: 10px;
+    }
+
+    /* hide on print */
+    @media print {
+
+      .add-button,
+      .remove-button,
+      input[type="button"] {
+        display: none !important;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <form id="prescriptionForm">
+
+      <div class="row">
+
+        <div class="col-md-7">
+
+          <div class="column">
+
+            <h4>Prof. Dr. Jhon Doe</h4>
+
+            <br>MBBS, FCPS, MD (Derma), MRCP (Glasg), BCS (Health)</br>
+
+            Skin & Allergy Specialist <br>
+
+            <strong>Professor</strong> </br>
+
+            Department of Dermatology </br>
+
+            Bangabandhu Sheikh Mujib Medical University </br>
+
+            BMDC Reg No. - 13213
+
+          </div>
+
+        </div>
+
+        <div class="col-md-5">
+
+          <div class="column">
+
+            <p><strong>Chamber:</strong></p>
+
+            <p>
+
+            <h5>Unpopular Diagnostic Limited</h5>
+
+            26/3 Green Road, Dhanmondi, Dhaka, 1207</br>
+
+            Email: contact@unpopulardc.com</br>
+
+            Phone: 0412791932, 017123445668</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <hr>
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <div class="column">
+
+            <div class="container">
+
+              <div class="row">
+
+                <div class="col-md-4">
+
+                  <p><input class="form-control required-field" type="text" name="patientName" placeholder="Patient Name" required /></p>
+
+                </div>
+
+                <div class="col-md-4">
+
+                  <p><input class="form-control required-field" type="text" name="patientAge" placeholder="Age" required /></p>
+
+                </div>
+
+                <div class="col-md-4">
+
+                  <p><input class="form-control" type="text" name="prescriptionDate" value="" readonly /></p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+
+          <div class="column">
+
+            <h5>Disease</h5>
+
+            <ul id="diseaseList">
+
+            </ul>
+
+            <span class="add-button" onclick="addField('diseaseList')">+ Add Disease</span>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-8 medicines">
+
+          <h4>Rx.</h4>
+
+          <div class "column">
+
+            <ol id="medicationList">
+
+            </ol>
+
+            <span class="add-button" onclick="addField('medicationList')">+ Add Medication</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+
+          <div class="column">
+
+            <h5>Tests</h5>
+
+            <ul id="testList">
+
+            </ul>
+
+            <span class="add-button" onclick="addField('testList')">+ Add Test</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <div class="column note mt5">
+
+            <p>Follow up after <input class="form-control inline-input" type="text" name="followUp" value="" placeholder="__" /> Days</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <input class="btn btn-primary" type="button" value="Print Prescription" onclick="handlePrintButton()" />
+
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
+
+  <script>
+    function addField(listId) {
+      const list = document.getElementById(listId);
+      const count = list.getElementsByTagName("li").length + 1;
+      const li = document.createElement("li");
+      if (listId === "medicationList") {
+        li.innerHTML = `
+
+                    <input class="form-control required-field" type="text" name="${listId}${count}" placeholder="Medicine" required />
+
+                    <span><input class="form-control new-field" type="text" name="medicationDetails${count}" placeholder="Dose" /></span>
+
+                    <span class="add-button" onclick="addField('${listId}')">+ Add</span>
+
+                    <span class="remove-button" onclick="removeField(this)">- Remove</span>
+
+                `;
+      } else {
+        li.innerHTML = `
+
+                    <input class="form-control required-field" type="text" name="${listId}${count}" placeholder="${listId === 'testList' ? 'Test' : 'Disease'}" required />
+
+                    <span class="add-button" onclick="addField('${listId}')">+ Add</span>
+
+                    <span class="remove-button" onclick="removeField(this)">- Remove</span>
+
+                `;
+      }
+      list.appendChild(li);
+    }
+
+    function removeField(button) {
+      const listItem = button.parentElement;
+      listItem.remove();
+    }
+    // print button validation 
+    function handlePrintButton() {
+      const requiredFields = document.querySelectorAll('.required-field');
+      let isValid = true;
+      requiredFields.forEach(field => {
+        if (field.value.trim() === "") {
+          isValid = false;
+          field.style.border = '1px solid red'; // Highlight the empty required fields
+        } else {
+          field.style.border = '0px solid #000'; // Reset the border for non-empty fields
+        }
+      });
+      if (!isValid) {
+        alert("Please fill up all required fields before printing.");
+      } else {
+        window.print();
+      }
+    }
+    //  current date
+    const dateField = document.querySelector('[name="prescriptionDate"]');
+    const today = new Date();
+    const options = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    };
+    dateField.value = today.toLocaleDateString('en-US', options);
+  </script>
+
+</body>
+
+  </html>
