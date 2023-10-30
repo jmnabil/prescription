@@ -297,23 +297,7 @@
       listItem.remove();
     }
     // print button validation 
-    function handlePrintButton() {
-      const requiredFields = document.querySelectorAll('.required-field');
-      let isValid = true;
-      requiredFields.forEach(field => {
-        if (field.value.trim() === "") {
-          isValid = false;
-          field.style.border = '1px solid red'; // Highlight the empty required fields
-        } else {
-          field.style.border = '0px solid #000'; // Reset the border for non-empty fields
-        }
-      });
-      if (!isValid) {
-        alert("Please fill up all required fields before printing.");
-      } else {
-        window.print();
-      }
-    }
+
     //  current date
     const dateField = document.querySelector('[name="prescriptionDate"]');
     const today = new Date();
